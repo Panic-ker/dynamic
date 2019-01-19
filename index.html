@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html>
+<style>
+  * { 
+  box-sizing: border-box; 
+  transition: background 0.5s, color 0.5s;
+}
+
+/* let's set up some variables */
+:root {
+  --primary-color: #333;
+  --dark-gray: #222;
+  --almost-black: #111;
+  --semi-white: #ccc;
+  --blue: #3498db;
+  --red: #e74c3c;
+  
+  --standard: 1.25rem;
+  --big: 2rem;
+  --small: 0.7rem;
+  
+  --serif: Georgia, serif;
+}
+
+/* some basic usage of these variables */
+body {
+  background-color: var(--primary-color);
+  color: var(--semi-white);
+  font-family: var(--serif);
+  line-height: 1.4;
+  /* alright, let's calc that shit */
+  letter-spacing: calc( var(--standard) - 1.2rem );
+}
+section {
+  background: var(--dark-gray);
+  padding: var(--standard);
+  margin: var(--standard);
+  border-radius: var(--small);
+  /* now let's try something more tricky */
+  box-shadow: inset 0 0 var(--standard) 0 var(--almost-black);
+}
+em {
+  font-style: oblique;
+}
+h1, h2 {
+  font-size: var(--big);
+  font-style: oblique;
+  font-weight: bold;
+  margin: 0 0 var(--standard) 0;
+}
+h2 {
+  font-size: calc( var(--big) - 0.4rem );
+}
+p {
+  font-size: var(--standard);
+  margin: 0 0 var(--standard) 0;
+}
+a {
+  color: var(--semi-white);
+  outline: none;
+}
+a:hover {
+  color: var(--blue);
+}
+code {
+  font-family: monospace;
+  font-size: calc( var(--standard) - 0.1rem );
+  color: var(--blue);
+}
+.inspired-section {
+  text-align: center;
+}
+.inspired {
+  display: inline-block;
+}
+button {
+  background: var(--primary-color);
+  color: var(--almost-white);
+  font-family: var(--serif);
+  font-size: var(--standard);
+  padding: var(--small);
+  border: none;
+  outline: none;
+  border-radius: var(--small);
+  /* let's go nuts, variables */
+  box-shadow: 0 calc( var(--small) - 0.5rem ) var(--small) 0 var(--almost-black);
+}
+button:hover {
+  cursor: pointer;
+  background: var(--blue);
+}
+button:active {
+  transform: scale(0.95);
+}
+</style>
+
+<body>
+
+  <section>
+  <h1>Dynamic CSS Variables</h1>
+</section>
+<section>
+  <h2>much &hearts; for the fox and variables...</h2>
+  <p>Example Usage:</p>
+  <p><code>:root { --some-variable: somevalue; }</code></p>
+  <p><code>body { property: var(--some-variable); }</code></p>
+  
+  <button>Example Button</button>
+</section>
+<section>
+  <!-- works inline as well -->
+  <h2 style="color: var(red)">How about Chrome!?</h2>
+  <p>It's possible with <a href="https://gist.github.com/tmanderson/98bbd05899995fd35443">this JS fallback</a>, athough this one require inline styles. If the <code>&lt;link&gt;</code> context get fetched via XHR it can parsed with this function too.</p>
+</section>
+<section class="inspired-section">
+  <a class="inspired" target="_blank" href="https://codepen.io/grayghostvisuals/pen/Fehoy">inspired by this pen</a> (not working anymore) and <a class="inspired" target="_blank" href="https://codepen.io/reimersjan/pen/mzFet">this one</a>
+</section>
+
+
+
+    <script>
+var originalStyles = new WeakMap(); //  or a plain object storing ids
+
+var nativeSupport = (function(){
+  var bodyStyles = window.getComputedStyle(document.body);
+  var fooBar = bodyStyles.getPropertyValue('--primary-color'); // some variable from CSS
+  return !!fooBar;
+}());
+
+// Based on https://gist.github.com/tmanderson/98bbd05899995fd35443
+function processCSSVariables(input) {
+  var styles  = Array.prototype.slice.call(document.querySelectorAll('style'), 0),
+      defRE   = /(\-\-[-\w]+)\:\s*(.*?)\;/g,
+      overwrites = input || {};
+  
+  if (nativeSupport) {
+    Object.keys(overwrites)
+      .forEach(function (property){
+        document.body.style.setProperty(
+          '--' + property,
+          overwrites[property]
+        );
+      });
+    return;
+  }
+
+  function refRE(name) {
+      return (new RegExp('var\\(\s*' + name + '\s*\\)', 'gmi'));
+  }
+
+  styles.forEach(function(styleElement) {
+      var content = originalStyles[styleElement] || (
+        originalStyles[styleElement] = styleElement.textContent
+        ), vars, uses;
+
+      while((vars = defRE.exec(content))) {
+          content = content.replace(refRE(vars[1]), overwrites[vars[1].substr(2)] || vars[2]);
+      }
+
+      styleElement.textContent = content;
+  });
+}
+
+(function loop() {
+  processCSSVariables({
+    'primary-color': 'hsl('+(Math.random()*360|0)+', 67%, 33%)'
+  });
+  
+  setTimeout(loop, 2000);
+}());
+
+    </script>
+
+</body>
+
+</html>
