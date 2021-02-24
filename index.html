@@ -1,181 +1,191 @@
 <!DOCTYPE html>
 <html>
 <style>
-  * { 
-  box-sizing: border-box; 
-  transition: background 0.5s, color 0.5s;
+ body {
+    width: 100%;
+    height: 100%;
 }
 
-/* let's set up some variables */
-:root {
-  --primary-color: #333;
-  --dark-gray: #222;
-  --almost-black: #111;
-  --semi-white: #ccc;
-  --blue: #3498db;
-  --red: #e74c3c;
-  
-  --standard: 1.25rem;
-  --big: 2rem;
-  --small: 0.7rem;
-  
-  --serif: Georgia, serif;
+html {
+    width: 100%;
+    height: 100%;
 }
 
-/* some basic usage of these variables */
-body {
-  background-color: var(--primary-color);
-  color: var(--semi-white);
-  font-family: var(--serif);
-  line-height: 1.4;
-  /* alright, let's calc that shit */
-  letter-spacing: calc( var(--standard) - 1.2rem );
+.navbar-transparent {
+   background-color: transparent;
+   background: transparent;
+   border-color: transparent;
 }
-section {
-  background: var(--dark-gray);
-  padding: var(--standard);
-  margin: var(--standard);
-  border-radius: var(--small);
-  /* now let's try something more tricky */
-  box-shadow: inset 0 0 var(--standard) 0 var(--almost-black);
+
+@media(min-width:767px) {
+    .navbar {
+        padding: 20px 0;
+        -webkit-transition: background .5s ease-in-out,padding .5s ease-in-out;
+        -moz-transition: background .5s ease-in-out,padding .5s ease-in-out;
+        transition: background .5s ease-in-out,padding .5s ease-in-out;
+    }
+
+    .top-nav-collapse {
+        padding: 0;
+    }
 }
-em {
-  font-style: oblique;
+
+/* Demo Sections - You can use these as guides or delete them - the scroller will work with any sort of height, fixed, undefined, or percentage based.
+The padding is very important to make sure the scrollspy picks up the right area when scrolled to. Adjust the margin and padding of sections and children 
+of those sections to manage the look and feel of the site. */
+
+.intro-section {
+    height: 100%;
+    padding-top: 150px;
+    text-align: center;
+    background: #fff;
 }
-h1, h2 {
-  font-size: var(--big);
-  font-style: oblique;
-  font-weight: bold;
-  margin: 0 0 var(--standard) 0;
+
+.about-section {
+    height: 100%;
+    padding-top: 150px;
+    text-align: center;
+    background: #eee;
 }
-h2 {
-  font-size: calc( var(--big) - 0.4rem );
+
+.services-section {
+    height: 100%;
+    padding-top: 150px;
+    text-align: center;
+    background: #fff;
 }
-p {
-  font-size: var(--standard);
-  margin: 0 0 var(--standard) 0;
-}
-a {
-  color: var(--semi-white);
-  outline: none;
-}
-a:hover {
-  color: var(--blue);
-}
-code {
-  font-family: monospace;
-  font-size: calc( var(--standard) - 0.1rem );
-  color: var(--blue);
-}
-.inspired-section {
-  text-align: center;
-}
-.inspired {
-  display: inline-block;
-}
-button {
-  background: var(--primary-color);
-  color: var(--almost-white);
-  font-family: var(--serif);
-  font-size: var(--standard);
-  padding: var(--small);
-  border: none;
-  outline: none;
-  border-radius: var(--small);
-  /* let's go nuts, variables */
-  box-shadow: 0 calc( var(--small) - 0.5rem ) var(--small) 0 var(--almost-black);
-}
-button:hover {
-  cursor: pointer;
-  background: var(--blue);
-}
-button:active {
-  transform: scale(0.95);
+
+.contact-section {
+    height: 100%;
+    padding-top: 150px;
+    text-align: center;
+    background: #eee;
 }
 </style>
 
-<body>
+<body id="page-top" data-spy="scroll" data-target=".navbar-fixed-top">
 
-  <section>
-  <h1>WhiteCat JR</h1>
-</section>
-<section>
-  <h2>much &hearts; for the fox and variables...</h2>
-  <p>Example Usage:</p>
-  <button>Example Button</button>
-</section>
-<section>
-  <!-- works inline as well -->
-  <h2 style="color: var(red)">How about Chrome!?</h2>
-  <p>It's possible with <a href="https://gist.github.com/tmanderson/98bbd05899995fd35443">this JS fallback</a>, athough this one require inline styles. If the <code>&lt;link&gt;</code> context get fetched via XHR it can parsed with this function too.</p>
-</section>
-<section class="inspired-section">
-  <a class="inspired" target="_blank" href="https://codepen.io/grayghostvisuals/pen/Fehoy">inspired by this pen</a> (not working anymore) and <a class="inspired" target="_blank" href="https://codepen.io/reimersjan/pen/mzFet">this one</a>
-</section>
+    <!-- Navigation -->
+    <nav class="navbar navbar-default navbar-transparent navbar-fixed-top" role="navigation">
+        <div class="container">
+            <div class="navbar-header page-scroll">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand page-scroll" href="#page-top">Logo Here</a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse navbar-ex1-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <!-- Hidden li included to remove active class from about link when scrolled up past about section -->
+                    <li class="hidden">
+                        <a class="page-scroll" href="#page-top"></a>
+                    </li>
+                    <li>
+                        <a class="page-scroll" href="#about">About</a>
+                    </li>
+                    <li>
+                        <a class="page-scroll" href="#services">Services</a>
+                    </li>
+                    <li>
+                        <a class="page-scroll" href="#contact">Contact</a>
+                    </li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+
+    <!-- Intro Section -->
+    <section id="intro" class="intro-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h1>One Page Website</h1>
+                    <p>I like clean code and I cannot lie</p>
+                    <a class="btn btn-default page-scroll" href="#about">Click Me to Scroll Down!</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h1>About Section</h1>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="services-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h1>Services Section</h1>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h1>Contact Section</h1>
+                </div>
+            </div>
+        </div>
+    </section>
+
+ <script>
+  //jQuery to collapse the navbar on scroll
+var header_height  = $('.navbar').height(),
+    intro_height    = $('.intro-section').height(),
+    offset_val = intro_height + header_height;
+$(window).scroll(function() {
+  var scroll_top = $(window).scrollTop();
+    if (scroll_top >= offset_val) {
+        $(".navbar-fixed-top").addClass("top-nav-collapse");
+            $(".navbar-fixed-top").removeClass("navbar-transparent");
+    } else {
+        $(".navbar-fixed-top").removeClass("top-nav-collapse");
+      $(".navbar-fixed-top").addClass("navbar-transparent");
+    }
+});
+
+//jQuery for page scrolling feature - requires jQuery Easing plugin
+$(function() {
+    $('a.page-scroll').bind('click', function(event) {
+        var $anchor = $(this);
+        $('html, body').stop().animate({
+            scrollTop: $($anchor.attr('href')).offset().top
+        }, 1500, 'easeInOutExpo');
+        event.preventDefault();
+    });
+});
 
 
-
-    <script>
-var originalStyles = new WeakMap(); //  or a plain object storing ids
-
-var nativeSupport = (function(){
-  var bodyStyles = window.getComputedStyle(document.body);
-  var fooBar = bodyStyles.getPropertyValue('--primary-color'); // some variable from CSS
-  return !!fooBar;
-}());
-
-// Based on https://gist.github.com/tmanderson/98bbd05899995fd35443
-function processCSSVariables(input) {
-  var styles  = Array.prototype.slice.call(document.querySelectorAll('style'), 0),
-      defRE   = /(\-\-[-\w]+)\:\s*(.*?)\;/g,
-      overwrites = input || {};
-  
-  if (nativeSupport) {
-    Object.keys(overwrites)
-      .forEach(function (property){
-        document.body.style.setProperty(
-          '--' + property,
-          overwrites[property]
-        );
-      });
-    return;
-  }
-
-  function refRE(name) {
-      return (new RegExp('var\\(\s*' + name + '\s*\\)', 'gmi'));
-  }
-
-  styles.forEach(function(styleElement) {
-      var content = originalStyles[styleElement] || (
-        originalStyles[styleElement] = styleElement.textContent
-        ), vars, uses;
-
-      while((vars = defRE.exec(content))) {
-          content = content.replace(refRE(vars[1]), overwrites[vars[1].substr(2)] || vars[2]);
-      }
-
-      styleElement.textContent = content;
-  });
-}
-
-(function loop() {
-  processCSSVariables({
-    'primary-color': 'hsl('+(Math.random()*360|0)+', 67%, 33%)'
-  });
-  
-  setTimeout(loop, 200000);
-}());
-     
-     
-     
-
-    </script>
- 
- <script type="text/javascript">window.$crisp=[];window.CRISP_WEBSITE_ID="9a64bb95-3a7e-4372-9d9f-dc72a9b5b6b5";(function(){d=document;s=d.createElement("script");s.src="https://client.crisp.chat/l.js";s.async=1;d.getElementsByTagName("head")[0].appendChild(s);})();</script>
- 
-    <!-- ChatOnce embed START 
-         <script id="co-index" src="https://cdn.oncehub.com/co/widget.js?website_id=web-53e1fcc6b0" defer></script>
-     <!--  ChatOnce embed END -->
+// //jQuery to collapse the navbar on scroll
+// $(window).scroll(function() {
+//     if ($(".navbar").offset().top > 100) {
+//         $(".navbar-fixed-top").addClass("top-nav-collapse");
+//             $(".navbar-fixed-top").removeClass("navbar-transparent");
+//     } else {
+//         $(".navbar-fixed-top").removeClass("top-nav-collapse");
+//       $(".navbar-fixed-top").addClass("navbar-transparent");
+//     }
+// });
+ </script>
  
 </body>
 
